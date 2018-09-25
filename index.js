@@ -29,7 +29,16 @@ var count = 0;
 app.get('/', (req, res) => {
    client.set('visits', count++);
    client.get('visits', (err, val) => {
-       res.send(`this is the count test ${val} -- ${sqlStatus}`);
+        if (err) throw err;
+        console.log(val);
+        // connection.query("SELECT * FROM `AccessProperties`", function (err, result, fields) {
+            // if (err) throw err;
+            // console.log(err || result);    
+            // let sqltest = result.map((record)=>{
+            //     return record.model;
+            // });
+        res.send(`this is the count test ${val} -- ${sqlStatus}`);
+        // });
    });
 });
 
