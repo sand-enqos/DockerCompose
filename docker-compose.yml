@@ -1,0 +1,18 @@
+version: '3'
+services:
+  redis-server:
+    image: 'redis'
+  mysql-server:
+    image: mysql:5.7
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_DATABASE: flvservice
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+  node-app:
+    build: .
+    ports:
+     - "3000:3000"
+
+
