@@ -13,7 +13,7 @@ var mysql = require('mysql')
 var connection = mysql.createConnection({
   host: 'mysql-server',
   user: 'root',
-  password: 'root',
+  password: 'Ch0c0l@teM1lk!',
   database: 'flvservice'
 });
 
