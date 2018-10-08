@@ -12,8 +12,9 @@ var mysql = require('mysql')
 
 var connection = mysql.createConnection({
   host: 'mysql-server',
+  port: '3306',
   user: 'root',
-  password: 'Ch0c0l@teM1lk!',
+  password: 'root',
   database: 'flvservice'
 });
 
