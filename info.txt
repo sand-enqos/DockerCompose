@@ -1,0 +1,2 @@
+Open Running Container Shell (docker-compose.yml)
+> sudo docker-compose exec node-app sh 
