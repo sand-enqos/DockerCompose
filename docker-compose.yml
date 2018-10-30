@@ -2,8 +2,10 @@ version: '3'
 services:
   redis-server:
     image: 'redis'
+    restart: always
   mysql-server:
     image: mysql:5.7
+    restart: always
     environment:
       MYSQL_HOST: localhost
       MYSQL_DATABASE: flvservice
@@ -17,5 +19,7 @@ services:
     build: .
     ports:
      - "3000:3000"
+    links: 
+      - mysql-server:mysql-server   
 
 
