@@ -23,5 +23,9 @@ services:
      - "3000:3000"
     links: 
       - mysql-server:mysql-server   
+   tests:
+    restart: always
+    build: .
+    command:  ["sudo", "npm", "run", test]    
 
 
