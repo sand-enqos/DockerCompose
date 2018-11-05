@@ -24,7 +24,7 @@ services:
     container_name: phpmyadmin
     environment:
         - PMA_ARBITRARY=1
-        - PMA_HOST=db
+        - PMA_HOST=mysql-server
     restart: always
     ports:
         - 8088:80
