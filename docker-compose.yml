@@ -2,30 +2,51 @@ version: '3'
 services:
   redis-server:
     image: 'redis'
-    restart: always
+    container_name: redis
+    restart: on-failure
   mysql-server:
-    image: mysql:5.7
-    restart: always
+    image: mariadb:10.3
+    container_name: mariadb
+    restart: on-failure
+    volumes:
+      - container-volume:/var/lib/mysql
+      - ./flvservice.sql:/docker-entrypoint-initdb.d/flvservice.sql
     environment:
       MYSQL_HOST: localhost
       MYSQL_DATABASE: flvservice
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
-    expose:
-      - 3306
-  node-app:
+    links: 
+      - redis-server:redis-server
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST=db
     restart: always
-    build: .
-    stdin_open: true
-    tty: true
     ports:
-     - "3000:3000"
+        - 8088:80
+    volumes:
+        - /sessions
+    links: 
+      - mysql-server         
+  node-app:
+    container_name: nodeapp
     links: 
       - mysql-server:mysql-server   
+    restart: always
+    build: .
+    ports:
+     - "3000:3000"
+volumes:
+  container-volume:
   # tests:
-  #   restart: always
-  #   build: .
-  #   command:  ["sudo", "npm", "run", "test"]    
-
-
+  #   build: 
+  #     context: . # path to dockerfile
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - /app/node_modules
+  #     - .:/app
+  #   command: ['npm', 'run', 'test']

@@ -23,6 +23,10 @@ connection.connect(function(err) {
     if (err) throw err
         console.log('You are now connected...');
         sqlStatus = "connected";   
+        connection.query("SELECT * FROM User", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        });    
 });
   
 
